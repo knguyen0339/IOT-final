@@ -10,7 +10,7 @@
 #define GREEN_PIN 39
 #define WHITE_PIN 38
 
-#define BUZZER 17
+#define BUZZER_PIN 17
 int ledState = LOW;
 bool ledFlash = false;
 
@@ -52,22 +52,23 @@ void loop() {
     if (touched != 0) {
         Serial.println("Botton pressed");
         count = 0;
-        ledState = HIGH;
         ledFlash = true;
         tft.drawString("Bell's ringing", 10, 10, 2);
     }
 
-    // Control led lights
+    // Control led lights and buzzer
+    if (ledFlash == true)
+    {
+      if (ledState == HIGH) {ledState = LOW;}
+      else
+      {
+        tone(BUZZER_PIN, 250, 200);
+        ledState = HIGH;
+      }
+    }
     digitalWrite(RED_PIN, ledState); 
     digitalWrite(YELLOW_PIN, ledState); 
     digitalWrite(GREEN_PIN, ledState);
-    if (ledFlash == true)
-    {
-      if (ledState == HIGH)
-        ledState = LOW;
-      else
-        ledState = HIGH;
-    }
     
     // Turn off all alerts 5s after the button is pressed
     count += 200;
