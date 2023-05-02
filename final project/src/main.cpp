@@ -204,7 +204,7 @@ void loop() {
     
     // Turn off all alerts 5s after the button is pressed
     ledCount += 200;
-    if (ledCount >= 5000){
+    if (ledCount >= 10000){
       ledCount = 0;
       tft.fillScreen(TFT_BLACK);
       ledState = LOW;
